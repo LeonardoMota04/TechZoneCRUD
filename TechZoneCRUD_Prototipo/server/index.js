@@ -16,16 +16,29 @@ const db = mysql.createConnection({
 // se problema de autenticacao
 // ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '040593@040593';
 
+
+
 app.get("/", (req, res) => {
     res.json("Olá")
 })
 // CRUD
-// READ
+// READ (TUDO)
 app.get("/products", (req, res) => {
     const query = "SELECT * FROM products"
     db.query(query, (err,data)=>{
         if(err) return res.json(err)
         return res.json(data)
+    })
+})
+
+// READ (ESPECIFICO)
+app.get('/products/byID/:id', (req, res) => {
+    const id = req.params.id
+    const query = "SELECT * FROM products WHERE product_ID = ?"
+
+    db.query(query, [id], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data[0])
     })
 })
 
