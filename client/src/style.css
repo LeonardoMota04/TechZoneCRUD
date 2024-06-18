@@ -1,55 +1,121 @@
+/* style.css */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
 .App {
-    padding: 0px 100px;
+    padding: 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin-left: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    margin-right: 20px;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+nav ul li a:hover {
+    background-color: #555;
 }
 
 .subtitle {
     text-align: left;
 }
+
+.filter {
+    margin-bottom: 20px;
+}
+
 .products {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 20px;
+    justify-content: center;
 }
 
 .product {
-    width: 230px; /* 3 produtos por linha com espaço entre eles */
+    width: 230px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 5px solid #ccc; 
+    border: 1px solid #ccc;
     box-sizing: border-box;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.product:hover {
+    transform: scale(1.05);
 }
 
 img {
     width: 200px;
     height: 300px;
     object-fit: cover;
-    background-color: blueviolet;
 }
 
-.update, .delete {
+.update,
+.delete {
     border: none;
-    padding: 3px;
+    padding: 10px 20px;
+    margin: 5px;
     background-color: white;
     cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
 }
 
 .update {
-    border: 1px solid rgb(56, 24, 138);
-    color: rgb(24, 9, 118);
+    border: 2px solid #38188a;
+    color: #180976;
+    background-color: #f0f0ff;
+    border-radius: 5px;
 }
 
 .delete {
-    border: 1px solid rgb(224, 72, 72);
-    color: rgb(223, 53, 53);
+    border: 2px solid #e04848;
+    color: #df3535;
+    background-color: #ffe5e5;
+    border-radius: 5px;
 }
 
+.delete:hover {
+    background-color: #ffcccc;
+}
 
-.form { 
+.form {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -68,4 +134,40 @@ input {
     color: white;
     font-weight: bold;
     cursor: pointer;
+}
+
+.addButton {
+    border: none;
+    padding: 15px 25px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.addButton:hover {
+    background-color: #45a049;
+}
+
+.product-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.product-detail img {
+    max-width: 400px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
 }

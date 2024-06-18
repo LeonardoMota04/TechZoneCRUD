@@ -1,50 +1,54 @@
-import React, { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Update = () => {
-    const[product, setProduct] = useState({
-        product_name:"",
-        product_description:"",
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    const [product, setProduct] = useState({
+        product_name: "",
+        product_description: "",
         product_price: null,
-        product_image:"",
-    })
+        product_image: "",
+    });
 
-    // NAVEGAÇÃO
-    const navigate = useNavigate()
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const res = await axios.get(`http://localhost:8800/products/byID/${id}`);
+                setProduct(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchProduct();
+    }, [id]);
 
-    // PEGAR O ID
-    const location = useLocation()
-    const productID = location.pathname.split("/")[2]
-
-    // PEGAR O VALOR ENQUANTO ESCREVE
     const handleChange = (e) => {
-        setProduct(prev=>({...prev, [e.target.name]: e.target.value }))
-    }
+        setProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    };
 
-    // AO CLICAR NO UPDATE, ELE MANDA USANDO AXIOS COM PUT
-    const handleClick = async e => {
-        e.preventDefault() // tira o refresh automático da pagina
-
-        try {   
-            await axios.put("http://localhost:8800/products/" + productID, product)
-            navigate("/")
-        } catch(err){
-            console.log(err)
+    const handleClick = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.put(`http://localhost:8800/products/${id}`, product);
+            navigate("/admin");
+        } catch (err) {
+            console.log(err);
         }
+    };
 
-    }
-    console.log(product)
-  return (
-    <div className='form'>
-        <h1>Editar produto</h1>
-        <input type="text" placeholder='NOVO Nome do produto' onChange={handleChange} name='product_name'/>
-        <input type="text" placeholder='NOVO Descrição do produto'onChange={handleChange} name='product_description'/>
-        <input type="number" placeholder='NOVO Preço do produto' onChange={handleChange} name='product_price'/>
-        <input type="text" placeholder='NOVA imagem do produto' onChange={handleChange} name='product_image'/>
-        <button className='formButton' onClick={handleClick}>Update</button>
-    </div>
-  )
-}
+    return (
+        <div className='form'>
+            <h1>Editar produto - ID: {id}</h1>
+            <input type="text" value={product.product_name} placeholder='Nome do produto' onChange={handleChange} name='product_name' />
+            <input type="text" value={product.product_description} placeholder='Descrição do produto' onChange={handleChange} name='product_description' />
+            <input type="number" value={product.product_price} placeholder='Preço do produto' onChange={handleChange} name='product_price' />
+            <input type="text" value={product.product_image} placeholder='Imagem do produto' onChange={handleChange} name='product_image' />
+            <button className='formButton' onClick={handleClick}>Update</button>
+        </div>
+    );
+};
 
-export default Update
+export default Update;
