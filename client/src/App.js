@@ -32,7 +32,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <footer>
-        <p>&copy; 2023 TechZone.</p>
+        <p>&copy; 2024 TechZone.</p>
       </footer>
     </div>
   );
